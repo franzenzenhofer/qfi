@@ -38,7 +38,7 @@ or via npm (not yet published)
   
 **q methods**  
 q.createFunctionItem 
-q.add  / q.addFunctionItem
+q.add()  / q.addFunctionItem()
 q.setConf
 q.start 
 q.restart
@@ -60,12 +60,12 @@ q.create()
 **FUNCTIONITEM**
 
 **FunctionItem properties**
-func
-args
-thisarg
-eventname
+q[n].func
+q[n].args
+q[n].thisarg
+q[n].eventname
 
 **FunctionItem methods**
-apply
-call
-execute() / x()
+q[n]() / q[n].execute() / x()
+q[n].apply()
+q[n].call()

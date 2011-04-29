@@ -18,11 +18,17 @@ for(var z in events.EventEmitter.prototype) {
 }
 var FunctionItem = function(func, args, thisarg, eventname, q) {
   var self = this;
-  self.func = func;
-  self.args = args;
-  self.thisarg = thisarg;
-  self.eventname = eventname;
-  self.q = q
+  var f = function(){
+    return self.x();
+  }
+  self.arguments = f.arguments;
+  self.func = f.func = func;
+  self.args = f.args = args;
+  self.thisarg = f.thisarg = thisarg;
+  self.eventname = f.eventname = eventname;
+  self.q = f.q = q;
+  f.prototype = FunctionItem.prototype;
+  return f;
 };
 FunctionItem.prototype.apply = function(thisarg, args) {
   var self = this;
@@ -79,7 +85,8 @@ Q.prototype._run = function(conf) {
     }else {
       if(self.breakIf()) {
       }else {
-        self[self.pointer].x();
+        //self[self.pointer].x();
+        self[self.pointer]();
         self.pointer = self.pointer + 1;
         setTimeout(function() {
           self._run()
