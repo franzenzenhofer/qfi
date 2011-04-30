@@ -36,21 +36,27 @@ or via npm (not yet published)
 **Q**
 
 **q properties**
-  pointer
-  breakpoint
-  breakIf 
+
+    //if true, q is in daemon modus (waits for new things to execute)
+    //default false
+    q.daemon
+   
+    //time between executions, default 0
+    q.outtime
   
-  daemon
-  outtime
+   //a precondition callback
+    //if false, the execution loop breaks
+    q.breakIf()
+    //if the loop breaks, this callback is called
+    q.breakcallback(pointer)
   
-  breakcallback(pointer)
-  exitcallback()
+    //if the exectuion loop exits, this callback is called
+    q.exitcallback()
   
 **q methods**  
 
       //returns a new FunctionItem
       q.createFunctionItem(func, args, thisarg, eventname)
-      
       
       //adds a new FunctionItem to q
       //more details see the section about FunctionItem
@@ -106,9 +112,9 @@ or via npm (not yet published)
       q.setSecondRate(hits)
 
       //how many executions should happen in one minute/hour/day 
-      q.setMinuteRate
-      q.setHourlyRate 
-      q.setDailyRate
+      q.setMinuteRate()
+      q.setHourlyRate() 
+      q.setDailyRate()
 
       //create a new (blank) q
       q.create()

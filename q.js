@@ -1,20 +1,20 @@
 var events = require("events");
 var Q = function() {
   var self = this;
-  self.pointer = 0;
+  self._pointer = 0;
   self.stopflag = false;
-  self.breakpoint = false;
+  self._breakpoint = false;
   self.daemon = false;
   self.breakIf = function() {
     return false
   };
-  self.breakcallback = function(currentpointer) {
-    console.log("break before " + currentpointer)
+  self.breakcallback = function(current_pointer) {
+    console.log("break before " + current_pointer)
   };
   self.exitcallback = function() {
     console.log("nothing more to do, therfore i exit")
   };
-  self.breakcallback = 0
+  self.outtime = 0;
 };
 Q.prototype = Object.create(Array.prototype, {constructor:{value:Q, enumberable:true}});
 for(var z in events.EventEmitter.prototype) {
@@ -80,20 +80,20 @@ Q.prototype._run = function(conf) {
   if(conf) {
     self.setConf(conf)
   }
-  if(self.pointer < self.length) {
-    if(self.stopflag === true || self.breakpoint !== false && self.breakpoint === self.pointer) {
+  if(self._pointer < self.length) {
+    if(self.stopflag === true || self._breakpoint !== false && self._breakpoint === self._pointer) {
       self.stopflag = false;
       if(self.breakcallback) {
-        self.breakcallback(self.pointer)
+        self.breakcallback(self._pointer)
       }
     }else {
       if(self.breakIf()) {
         //break if this precondition is true
       }else {
-        //self[self.pointer].x();
-        //console.log(self.pointer);
-        self[self.pointer]();
-        self.pointer = self.pointer + 1;
+        //self[self._pointer].x();
+        //console.log(self._pointer);
+        self[self._pointer]();
+        self._pointer = self._pointer + 1;
         setTimeout(function() {
           self._run()
         }, self.outtime)
@@ -146,14 +146,14 @@ Q.prototype.stop = function(conf) {
 };
 Q.prototype.resume = function(conf) {
   var self = this;
-  if(self.pointer === self.breakpoint) {
+  if(self._pointer === self._breakpoint) {
     self.clearBreak()
   }
   return self._run(conf)
 };
 Q.prototype.startAt = function(start, conf) {
   var self = this;
-  self.pointer = start || 0;
+  self._pointer = start || 0;
   return self._run(conf)
 };
 Q.prototype.breakBefore = function(stop, conf) {
@@ -161,7 +161,7 @@ Q.prototype.breakBefore = function(stop, conf) {
   if(conf) {
     self.setConf(conf)
   }
-  self.breakpoint = stop;
+  self._breakpoint = stop;
   return self
 };
 Q.prototype.breakAfter = function(stop, conf) {
@@ -173,13 +173,13 @@ Q.prototype.clearBreak = function(conf) {
   if(conf) {
     self.setConf(conf)
   }
-  self.breakpoint = false;
+  self._breakpoint = false;
   return self
 };
 Q.prototype.startAtbreakBefore = function(start, stop, conf) {
   var self = this;
-  self.pointer = start;
-  self.breakpoint = stop;
+  self._pointer = start;
+  self._breakpoint = stop;
   return self._run(conf)
 };
 Q.prototype.pause = function(val, conf) {
