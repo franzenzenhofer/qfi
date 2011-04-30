@@ -1,0 +1,16 @@
+{
+  "name"          : "q",
+  "description"   : "a function processing queue for node.js",
+  "url"           : "https://github.com/franzenzenhofer/q",
+  "keywords"      : ["queue", "APIs", "rate-limit"],
+  "author"        : "Franz Enzenhofer <f.enzenhofer@gmail.com>",
+  "contributors"  : [],
+  "licenses": [
+     {
+        "type": "MIT"
+     }
+   ],
+  "dependencies"  : [],
+  "main"          : "./q.js",
+  "version"       : "0.1.0-q"
+}
