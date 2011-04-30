@@ -1,7 +1,7 @@
 {
-  "name"          : "q",
+  "name"          : "qfi",
   "description"   : "a function processing queue for node.js",
-  "url"           : "https://github.com/franzenzenhofer/q",
+  "url"           : "https://github.com/franzenzenhofer/qfi",
   "keywords"      : ["queue", "APIs", "rate-limit"],
   "author"        : "Franz Enzenhofer <f.enzenhofer@gmail.com>",
   "contributors"  : [],
@@ -11,6 +11,6 @@
      }
    ],
   "dependencies"  : [],
-  "main"          : "./q.js",
+  "main"          : "./qfi.js",
   "version"       : "0.1.0-0"
 }

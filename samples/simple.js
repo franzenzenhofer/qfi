@@ -1,8 +1,8 @@
-var q = require('../q.js');
+var q = require('../qfi.js');
 //console.log(q);
 for(var i = 0; i<100; i++)
 {
-  q.add(function(t){ console.log("function "+this._pointer+" with arguement "+t); return { "pointer":this.pointer,
+  q.add(function(t){ console.log("function "+this._pointer+" with arguement "+t); return { "pointer":this._pointer,
   "t":t
   } }, [(i*i)], q, 'testevent');
 } 

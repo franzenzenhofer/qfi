@@ -1,7 +1,7 @@
-Q  - a function processing queue for node.js
+QFI  - a function processing queue for node.js
 ===
 
-`q` ( /ˈkjuː/; named cue) is the love child of an array and an eventemitter
+`qfi` ( /ˈkjuːfi/; named cue-fi) is the love child of an array and an eventemitter
 
 it supports all 
   
@@ -10,7 +10,7 @@ it supports all
 
 methods and properties. this is allready useful in itself, but there is more.
 
-additonal `q` supports various native methods to 
+additonal `qfi` supports various native methods to 
 
   * store
   * execute
@@ -26,14 +26,16 @@ functions.
 
 **INSTALL**
 
-      var q = require('/path/to/q.js');
+      var q = require('/path/to/qfi.js');
       
 or via npm (not yet published)
 
-      >npm install q
-      var q = require('q');
+      >npm install qfi
+      var q = require('qfi');
       
 **Q**
+
+the 'q' part of 'qfi'
 
 **q properties**
 
@@ -116,10 +118,16 @@ or via npm (not yet published)
       q.setHourlyRate() 
       q.setDailyRate()
 
+      //add an event listener to q
+      //inherited from eventemitter
+      q.on(eventname, callback)
+      
       //create a new (blank) q
-      q.create()
+      var q2 = q.create()
 
 **FUNCTIONITEM**
+
+the 'fi' part of 'qfi'
 
 **FunctionItem properties**
       
@@ -133,7 +141,9 @@ or via npm (not yet published)
       q[n].thisarg
 
       //after `func` gets executed, this event is emitted (with the returnvalue of `func`)
+      //note: very cool and powerful
       q[n].eventname
+      //note: if no eventname is given, no event will be emitted
 
 **FunctionItem methods**
       
