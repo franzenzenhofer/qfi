@@ -28,7 +28,7 @@ functions.
 
       var q = require('/path/to/qfi.js');
       
-or via npm (not yet published)
+or via npm 
 
       >npm install qfi
       var q = require('qfi');
