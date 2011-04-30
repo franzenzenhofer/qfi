@@ -12,5 +12,5 @@
    ],
   "dependencies"  : [],
   "main"          : "./q.js",
-  "version"       : "0.1.0-q"
+  "version"       : "0.1.0-0"
 }
