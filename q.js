@@ -4,13 +4,17 @@ var Q = function() {
   self.pointer = 0;
   self.stopflag = false;
   self.breakpoint = false;
+  self.daemon = false;
   self.breakIf = function() {
     return false
   };
   self.breakcallback = function(currentpointer) {
     console.log("break before " + currentpointer)
   };
-  self.outtime = 0
+  self.exitcallback = function() {
+    console.log("nothing more to do, therfore i exit")
+  };
+  self.breakcallback = 0
 };
 Q.prototype = Object.create(Array.prototype, {constructor:{value:Q, enumberable:true}});
 for(var z in events.EventEmitter.prototype) {
@@ -84,8 +88,10 @@ Q.prototype._run = function(conf) {
       }
     }else {
       if(self.breakIf()) {
+        //break if this precondition is true
       }else {
         //self[self.pointer].x();
+        //console.log(self.pointer);
         self[self.pointer]();
         self.pointer = self.pointer + 1;
         setTimeout(function() {
@@ -93,6 +99,16 @@ Q.prototype._run = function(conf) {
         }, self.outtime)
       }
     }
+  }
+  else if(self.daemon==true)
+  {
+    setTimeout(function() {
+          self._run()
+        }, self.outtime);
+  }
+  else
+  {
+    self.exitcallback();
   }
   return self
 };
@@ -103,6 +119,18 @@ Q.prototype.setConf = function(conf) {
   }
   return self
 };
+Q.prototype.startDaemon = function()
+{
+  var self = this;
+  return self.setConf({'daemon':true});
+}
+
+Q.prototype.stopDaemon = function()
+{
+  var self = this;
+  return self.setConf({'daemon':false});
+}
+
 Q.prototype.start = function(conf) {
   var self = this;
   return self.startAt(0, conf)
@@ -136,7 +164,7 @@ Q.prototype.breakBefore = function(stop, conf) {
   self.breakpoint = stop;
   return self
 };
-Q.prototype.breakAt = function(stop, conf) {
+Q.prototype.breakAfter = function(stop, conf) {
   var self = this;
   return self.breakBefore(stop + 1, conf)
 };
