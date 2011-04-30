@@ -39,16 +39,18 @@ the 'q' part of 'qfi'
 
 **q properties**
 
-    //if true, q is in daemon modus (waits for new things to execute)
+    //if true, q is in daemon mode (q waits for new things to execute)
     //default false
     q.daemon
    
     //time between executions, default 0
     q.outtime
   
-   //a precondition callback
-    //if false, the execution loop breaks
+    //a precondition callback
+    //if true, the execution loop breaks
+    //per default returns false
     q.breakIf()
+
     //if the loop breaks, this callback is called
     q.breakcallback(pointer)
   
@@ -69,27 +71,22 @@ the 'q' part of 'qfi'
       //set the properties of q
       q.setConf(confobject)
       
-      //start daemon mode
-      //q waits if new FunctionItems get added (and then executes them)
-      q.startDaemon()
-
-      //turn of deamon mode
-      q.stopDaemon()
-
-      //executes all stored FunctionItems from q[0]
-      //takes an optional conf object -> see q.setConf
+      
+      //start an execution loop
+      //executes all stored FunctionItems, starting from q[0]
+      //takes an optional conf object -> see q properties
       q.start(conf) 
       // ===
       q.restart(conf)
 
-      //stop execution of FunctionItems  
+      //stop a currently running execution loop
       q.stop(conf) 
       
-      //if execution of FunctionItems was stopped
-      //`resume` continues execution where it was stopped
+      //if the execution loop was stopped
+      //`resume` continues execution from where it was stopped
       q.resume(conf)
       
-      //executes all FunctionItmes starting from q[start]
+      //executes all FunctionItems starting from q[start]
       q.startAt(start, conf)
       
       //stops execution before q[stop] gets executed
@@ -98,7 +95,7 @@ the 'q' part of 'qfi'
       //stops execution after q[stop] was executed
       q.breakAfter(stop,conf)
 
-      //deletes the brek set with q.breakBefore and q.breakAfter  
+      //deletes the break set with q.breakBefore or q.breakAfter  
       q.clearBreak(stop,conf)
       
       //start execution from q[start], stop execution before q[stop] 
@@ -107,7 +104,14 @@ the 'q' part of 'qfi'
       //pauses execution for `milsec` milseconds 
       //q.pause(milsec,conf)
 
-      //define how fast the FunctionItmes in q get executed (how many `hits`(executions) during `milisec`) 
+      //start daemon mode
+      //q waits for new FunctionItems get added (and then executes them)
+      q.startDaemon()
+
+      //turn of daemon mode
+      q.stopDaemon()
+
+      //define how fast the FunctionItems in q get executed (how many `hits`(executions) during `milisec`) 
       //q.setRate(hits, milsec)
 
       //how many executions should happen in one second
